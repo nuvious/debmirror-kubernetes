@@ -1,0 +1,30 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: debmirror-cron
+spec:
+  schedule: "0 3 * * 3"
+  successfulJobsHistoryLimit: 2
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: debmirror-cron
+            image: nuvious/apt-mirror:2.0.2
+            imagePullPolicy: IfNotPresent
+            volumeMounts:
+            - name: data
+              mountPath: /var/spool/apt-mirror
+            - name: mirror-list
+              mountPath: /etc/apt/mirror.list
+              subPath: mirror.list
+          restartPolicy: OnFailure
+          volumes:
+          - name: mirror-list
+            configMap:
+              name: mirror-list
+          - name: data
+            hostPath:
+              path: /opt/debmirror/data
+              type: DirectoryOrCreate

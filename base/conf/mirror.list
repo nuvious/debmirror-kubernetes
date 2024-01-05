@@ -1,0 +1,23 @@
+set base_path         /var/spool/apt-mirror
+set mirror_path       $base_path/data
+set skel_path         $base_path/skel
+set var_path          $base_path/var
+set postmirror_script $var_path/postmirror.sh
+set defaultarch       amd64
+set run_postmirror    0
+set nthreads          6
+set limit_rate        100m
+set _tilde            0
+set unlink            1
+set use_proxy         off
+set http_proxy        127.0.0.1:3128
+set proxy_user        user
+set proxy_password    passwordx
+deb http://ftp.us.debian.org/debian stable main contrib non-free-firmware
+deb-src http://ftp.us.debian.org/debian stable main contrib non-free-firmware
+deb http://security.debian.org/debian-security stable-security main contrib non-free-firmware
+deb-src http://security.debian.org/debian-security stable-security main contrib non-free-firmware
+deb http://ftp.us.debian.org/debian stable-updates main
+deb-src http://ftp.us.debian.org/debian stable-updates main contrib non-free-firmware
+deb http://ftp.us.debian.org/debian stable-backports main
+deb-src http://ftp.us.debian.org/debian stable-backports main contrib non-free-firmware

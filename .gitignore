@@ -1,0 +1,8 @@
+# Overlay definition used in readme
+# Recommend adding your own overlays to git ignore unless managing multiple deployments via source control in an org
+overlays/local
+
+# Don't store any defined secrets
+*secret.yaml
+*secret.yml
+

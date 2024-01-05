@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: debmirror
+    component: http
+  name: debmirror-nginx
+spec:
+  replicas: 1
+  revisionHistoryLimit: 2
+  selector:
+    matchLabels:
+      app: debmirror
+      component: http
+  strategy: {}
+  template:
+    metadata:
+      labels:
+        app: debmirror
+        component: http
+    spec:
+      containers:
+      - image: nginx:stable
+        name: debian-mirror-nginx
+        volumeMounts:
+        - name: data
+          mountPath: /usr/share/nginx/html
+        - name: nginx-conf
+          mountPath: /etc/nginx/conf.d/default.conf
+          subPath: default.conf
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "250m"
+          limits:
+            memory: "1Gi"
+            cpu: "1000m"
+      volumes:
+      - name: mirror-list
+        configMap:
+          name: mirror-list
+      - name: nginx-conf
+        configMap:
+          name: nginx-conf
+      - name: data
+        hostPath:
+          path: /opt/debmirror/data
+          type: Directory
+status: {}

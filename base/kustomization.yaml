@@ -1,0 +1,16 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: debmirror
+configMapGenerator:
+  - name: mirror-list
+    files:
+      - conf/mirror.list
+  - name: nginx-conf
+    files:
+      - conf/default.conf
+resources:
+  - nginx.yaml
+  - service.yaml
+  - namespace.yaml
+  - ingress.yaml
+  - debmirror-job.yaml
