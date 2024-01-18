@@ -20,11 +20,3 @@ spec:
               mountPath: /etc/apt/mirror.list
               subPath: mirror.list
           restartPolicy: OnFailure
-          volumes:
-          - name: mirror-list
-            configMap:
-              name: mirror-list
-          - name: data
-            hostPath:
-              path: /opt/debmirror/data
-              type: DirectoryOrCreate
